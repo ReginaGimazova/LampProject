@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Authentication</title>
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('css/stylesheet.css')}}">
+    {% endblock %}
+</head>
+
+<body>
+    <header>
+        <h2 class="logo">MY APP</h2>
+        <a class="nav_link">Switch to English</a>
+    </header>
+    <div class="form_window">
+        <h2>AUTHENTICATION</h2>
+        <form method="post">
+
+            <input placeholder="email" type="text" name="email">
+
+            <input placeholder="password" type="password" name="password">
+
+            <label class="label-auth" for="remember-me">remember me
+                <input type="checkbox" name="remember-me" id="remember-me">
+            </label>
+
+            <a class="link" href="{{ path('reg_open') }}">If you are not registered, follow the link</a>
+            <button type="submit" name="submit" class="post_btn">Log in</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,43 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+
+reg_open:
+  path: /registration
+  controller: App\controllers\RegistrationController::openRegistrationPage
+  methods: [GET]
+
+reg_post:
+  path: /registration
+  controller: App\controllers\RegistrationController::registration
+  methods: [POST]
+
+auth_open:
+  path: /authentication
+  controller: App\controllers\AuthenticationController::openAuthenticationPage
+  methods: [GET]
+
+auth_post:
+  path: /authentication
+  controller: App\controllers\AuthenticationController::authentication
+  methods: [POST]
+
+profile_open:
+  path: /profile/{id}
+  controller: App\controllers\ProfileController::openProfilePage
+  methods: [GET]
+
+delete_user:
+  path: /profile/{id}
+  controller: App\controllers\ProfileController::openProfilePage
+  methods: [POST]
+
+edit_open:
+  path: /profile/{id}/edit
+  controller: App\controllers\ProfileController::openEditPage
+  methods: [GET]
+
+edit_post:
+  path: /profile/{id}/edit
+  controller: App\controllers\ProfileController::edit
+  methods: [POST]

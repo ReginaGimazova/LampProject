@@ -1,0 +1,196 @@
+
+body{
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  font-family: Arial, monospace;
+  justify-content: center;
+  margin: 0;
+}
+
+header{
+  background-color: #252c35;
+  width: 100%;
+  height: 100%;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+}
+
+.form_window {
+  display: flex;
+  flex-flow: column;
+  width: 40%;
+  margin-top: 50px;
+  padding: 5% 0;
+  background-color: #d8d8d8;
+}
+
+.container{
+  display: flex;
+  flex-direction: row;
+  width: 60%;
+  margin: 50px;
+  background-color: #ededed;
+  padding: 20px;
+}
+
+.logo{
+  margin-left: 10%;
+}
+
+section{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+nav{
+  display: flex;
+  flex-direction: row;
+  margin-right: 5%;
+  width: 30%;
+  justify-content: space-between;
+}
+
+.nav_link{
+  margin: 20px 10%;
+  font-size: 19px;
+  font-weight: bold;
+}
+
+.nav_link{
+  margin-right: 10%;
+}
+
+.form_window > form {
+  display: flex;
+  flex-flow: column;
+  flex: 100%;
+}
+.profile_info{
+  width: 100%;
+  flex-direction: column;
+  display: flex;
+}
+
+form > input, form > select, form > label, form > button, .mini_content > input{
+  align-self: center;
+  width: 40%;
+  color: black;
+  padding: 10px;
+  margin: 5px 0;
+  font-size: 14px;
+  background-color: white;
+  border-radius: 5px;
+  border: none;
+}
+
+.btn{
+  align-self: auto;
+}
+
+.link{
+  text-decoration: none;
+  align-self: center;
+  margin-top: 20px;
+  color: #536075;
+  font-weight: bold;
+}
+.profile_label{
+  color: #252c35;
+  font-size: 16px;
+}
+
+.post_btn{
+  box-shadow: none;
+  border: none;
+  margin-top: 30px;
+  font-weight: bold;
+  color: white !important;
+  font-size: 16px !important;
+  background-color: #486c22 !important;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.form_window > h2, .form_window > form > h3, .profile_info > h2{
+  align-self: center;
+  font-weight: bold;
+  margin-top: 25px;
+  color: #252c35;
+}
+
+.form_window > form > select{
+  margin-top: 10px;
+  color: black;
+}
+
+.label-auth{
+  background-color: #d8d8d8 !important;
+  font-size: 17px !important;
+}
+
+input[type=checkbox]{
+  width: 15px;
+  height: 15px;
+}
+
+.error{
+  font-size: 16px;
+  color: #AA3333;
+    margin: 0;
+}
+
+.avatar{
+  height: 250px;
+  width: 250px;
+  border-radius: 50%;
+}
+
+.like_button{
+  line-height: 15px;
+  text-decoration: none;
+  background-color: #6f849c;
+  margin-top: 15px;
+  padding: 10px 15px;
+  color: white;
+  width: 90%;
+  text-align: center;
+  border-radius: 5px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.profile_info{
+  margin-left: 30px;
+  margin-top: 10px;
+}
+
+.profile_info > form{
+  display: flex;
+  flex-direction: column;
+  justify-items: flex-start;
+}
+.profile_info > form > .link{
+  align-self: auto !important;
+}
+
+.profile_info > form > p{
+  margin: 5px 0;
+}
+
+.page_content{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.mini_content{
+  text-align: center;
+  white-space: pre-line;
+}
+
+.mini_content > p{
+  margin-bottom: 0;
+}

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('css/stylesheet.css')}}">
+    {% endblock %}
+</head>
+<body>
+    <header>
+        <h2 class="logo">MY APP</h2>
+        <nav>
+            <a class="nav_link">Switch to English</a>
+            <a class="nav_link">Log out</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <section>
+            <img class="avatar" src="http://s3.amazonaws.com/37assets/svn/765-default-avatar.png">
+            <a class="like_button" name="edit" href="{{ path('edit_open', {'id': id}) }}">Edit</a>
+        </section>
+        <div class="profile_info">
+            <form method="post">
+                <p class="profile_label">Email: {{ email }}</p>
+                <p class="profile_label">Birthday: {{ birthday }}</p>
+                <p class="profile_label">Gender: {{ gender }}</p>
+                <p class="profile_label">Country: {{ country }}</p>
+                <button type="submit" name="delete" class="post_btn btn">delete this profile</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

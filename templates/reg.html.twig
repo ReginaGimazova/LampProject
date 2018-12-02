@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration</title>
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('css/stylesheet.css')}}">
+    {% endblock %}
+</head>
+
+<body>
+    <header>
+        <h2 class="logo">MY APP</h2>
+        <a class="nav_link">Switch to English</a>
+    </header>
+
+    <div class="page_content">
+        {%if notices is defined %}
+            <div class="errors">
+                <h4>Correct and try again</h4>
+                {% for notice in notices %}
+                    {% if notice != "" %}
+                        <p class="error">{{ notice }}</p>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endif %}
+        <div class="form_window">
+            <h2>REGISTRATION</h2>
+            <form method="post" action="">
+
+                <input placeholder="email" type="text" name="email" required>
+
+
+                <input placeholder="password" type="password" name="password" required>
+
+
+                <input placeholder="repeat password" type="password" name="confirm_password" required>
+
+
+                <input class="reg_input" placeholder="date of birth" type="date" name="date_of_birth">
+
+                <h3>ADDITIONAL INFORMATION</h3>
+
+                <select class="sel_input" name="gender">
+                    <option value="">Gender...</option>
+                    <option value="male">male</option>
+                    <option value="female">female</option>
+                </select>
+
+                <select class="sel_input" name="country">
+                    <option value="">Country...</option>
+                    {% for key in list|keys %}
+                       <option value="{{ list[key] }}">{{ list[key] }}</option>
+                    {% endfor %}
+                </select>
+
+                <select class="sel_input" id="mailing" name="mailing">
+                    <option selected value="true">I agree</option>
+                    <option value="false">I don't agree</option>
+                </select>
+
+                <a class="link" href="{{ path('auth_open') }}">If you are already a registered user, log in here</a>
+
+                <button class="post_btn" id="submit" type="submit" name="submit">Complete registration</button>
+
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

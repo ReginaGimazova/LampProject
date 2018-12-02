@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('css/stylesheet.css')}}">
+    {% endblock %}
+</head>
+<body>
+    <header>
+        <h2 class="logo">MY APP</h2>
+        <nav>
+            <a class="nav_link">Switch to English</a>
+            <a class="nav_link">Log out</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="profile_info">
+            <h2>Edit your profile</h2>
+            <form method="post">
+                <input name="email" value={{ email }} type="text">
+                <input type="date" name="date_of_birth" value={{ birthday }}>
+
+                <select class="sel-input" name="gender">
+                    <option value="male">male</option>
+                    <option value="female">female</option>
+                </select>
+
+                <select class="sel-input" name="country">
+                    <option selected value="{{ country }}">{{ country }}</option>
+                    {% for key in countries|keys %}
+                        <option value="{{ countries[key] }}">{{ countries[key] }}</option>
+                    {% endfor %}
+                </select>
+
+                <button type="button" onclick="openField()" id="openBtn">Change password</button>
+                <button type="button" onclick="closeField()" id="closeBtn" hidden="hidden">Cancel</button>
+
+                <div id="pswd" hidden="hidden" class="mini_content">
+                    <label for="pswd" class="link">Enter your old password</label>
+
+                    <input placeholder="old password" name="old_password" type="password">
+
+                    <p class="link">Enter your new password and repeat it</p>
+                    <input placeholder="new password" name="new_password" type="password">
+                    <input placeholder="repeat password" name="repeat_password" type="password">
+                </div>
+                <button type="submit" class="post_btn" name="edit">Edit</button>
+
+                {%if notices is defined %}
+                    <div class="errors">
+                        <h4>Correct and try again</h4>
+                        {% for notice in notices %}
+                            {% if notice != "" %}
+                                <p class="error">{{ notice }}</p>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </form>
+        </div>
+    </div>
+
+    {% block javascripts %}
+        <script>
+            function openField() {
+                document.getElementById('pswd').hidden = false;
+                document.getElementById('openBtn').hidden = true;
+                document.getElementById('closeBtn').hidden = false;
+            }
+
+            function closeField() {
+                document.getElementById('pswd').hidden = true;
+                document.getElementById('openBtn').hidden = false;
+                document.getElementById('closeBtn').hidden = true;
+            }
+        </script>
+    {% endblock %}
+</body>
+</html>
