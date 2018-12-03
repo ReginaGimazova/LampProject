@@ -26,7 +26,7 @@ class RegistrationController extends Controller
     private $response;
     private $userService;
     private $validationService;
-    private $notices;
+    private $notices = [];
 
     public function __construct(EntityManagerInterface $entityManager)
     {
@@ -50,37 +50,40 @@ class RegistrationController extends Controller
 
         $user = new User();
         $manager = $this->getDoctrine()->getManager();
-        $notice_array = [];
 
         if (isset($_POST['submit'])) {
 
             $data = $request->request->all();
 
             $this->validationService->checkUser($data);
-            $this->notices = $this->validationService->getNotice();
-            foreach ($this->notices as $key => $value){
-                $notice_array[$key] = $value;
-            }
+            $this->notices = $this->validationService->getNotices();
+            var_dump($this->notices);
 
-            if ($this->notices -> __toString() == "") {
-
-                foreach ($data as $key => $value) {
-
-                    $user->$key = $value;
+            foreach ($this->notices as $key => $value ){
+                if ($value !== ""){
+                    var_dump("not empty");
+                    $this->response = $this->render('reg.html.twig', [
+                        'notices' => $this->notices, 'list' => $this->list
+                    ]);
                 }
 
-                $manager->persist($user);
-                $manager->flush();
+                else {
 
-                $this->response = $this->redirectToRoute('auth_open');
+                    var_dump("empty");
+                    foreach ($data as $dataKey => $dataValue) {
+
+                        $user->$dataKey = $dataValue;
+                    }
+
+                    $manager->persist($user);
+                    $manager->flush();
+
+                    $this->response = $this->redirectToRoute('auth_open');
+                }
             }
 
-            else {
-                $this->response = $this->render('reg.html.twig', [
-                    'notices' => $notice_array, 'list' => $this->list
-                ]);
 
-            }
+
         }
         return $this->response;
     }

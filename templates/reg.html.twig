@@ -16,7 +16,7 @@
     </header>
 
     <div class="page_content">
-        {%if notices is defined %}
+        {%if notices is defined and notices is not empty %}
             <div class="errors">
                 <h4>Correct and try again</h4>
                 {% for notice in notices %}

@@ -86,36 +86,32 @@ class ProfileController extends Controller
                 $repeatPassword = $data['repeat_password'];
                 $this->validationService->checkUpdatedPassword($data['old_password'], $user->getPassword());
                 $this->validationService->checkConfirmPassword($repeatPassword, $newPassword);
-                $this->notices = $this->validationService->getNotice();
-                $notice_array = [];
-                if ($this->notices->__toString() == "") {
-                    foreach ($data as $key => $value) {
-                        $user->$key = $value;
-                    }
-                    $user->setPassword($newPassword);
-                    $manager->flush();
-                } elseif (!isset($newPassword, $repeatPassword, $data['old_password'])) {
-                    foreach ($data as $key => $value) {
-                        $user->$key = $value;
-                    }
-                    $manager->flush();
-                }
-
+                $this->notices = $this->validationService->getNotices();
                 foreach ($this->notices as $key => $value){
-                    $notice_array[$key] = $value;
+                    if ($value == "") {
+                        foreach ($data as $dataKey => $dataValue) {
+                            $user->$dataKey = $dataValue;
+                        }
+                        $user->setPassword($newPassword);
+                        $manager->flush();
+                        $this->response = $this->redirectToRoute('profile_open', array('id' => $id));
+                    }
+                    else{
+                        $this->response = $this->render('edit.html.twig', array(
+                            'id' => $id,
+                            'notices' => $this->notices,
+                            'email' => $user->getEmail(),
+                            'country' => $user->getCountry(),
+                            'gender' => $user->getGender(),
+                            'countries' => ExtraResources::getListOfCountries(),
+                            'birthday' => $user->getDateOfBirth()));
+                    }
                 }
-                if ($this->notices->__toString() !== "") {
-                    $this->response = $this->render('edit.html.twig', array(
-                        'id' => $id,
-                        'notices' => $notice_array,
-                        'email' => $user->getEmail(),
-                        'country' => $user->getCountry(),
-                        'gender' => $user->getGender(),
-                        'countries' => ExtraResources::getListOfCountries(),
-                        'birthday' => $user->getDateOfBirth()));
-                } else {
-                    $this->response = $this->redirectToRoute('profile_open', array('id' => $id));
-
+               if (!isset($newPassword, $repeatPassword, $data['old_password'])) {
+                    foreach ($data as $key => $value) {
+                        $user->$key = $value;
+                    }
+                    $manager->flush();
                 }
             }
         }

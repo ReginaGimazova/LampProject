@@ -7,50 +7,48 @@
  */
 
 namespace App\services;
-
-use App\entities\Notice;
 use App\entities\User;
 
 class ValidationService
 {
 
-    private $notice;
-
-    public function __construct()
-    {
-        $this->notice = new Notice();
-    }
-
+    private $notices = [
+        "emailError" => "",
+        "passwordError" => "",
+        "repeatPasswordError" => "",
+        "dateError" => "",
+        "updatedPasswordError" => ""
+    ];
 
     public function checkEmail($email){
 
         if (!strlen($email)) {
-          $this->notice->setEmailError('You must enter mail');
+          $this->notices["emailError"] = 'You must enter mail';
         } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-           $this->notice->setEmailError("Invalid email format");
+           $this->notices["emailError"] = "Invalid email format";
         }
     }
 
     public function checkPassword($password){
         if (!strlen($password)) {
-           $this->notice->setPasswordError('You must enter password');
+           $this->notices["passwordError"] = 'You must enter password';
         } elseif (strlen($password) < 8) {
-           $this->notice->setPasswordError("Length of password must be greater than 8 symbols");
+           $this->notices["passwordError"] = "Length of password must be greater than 8 symbols";
         }
     }
 
 
-    public function checkConfirmPassword($confirmPassword, $password){
-        if (!strlen(($confirmPassword))) {
-            $this->notice->setConfirmPasswordError('You must enter confirm-password');
-        } elseif (password_verify($confirmPassword, $password)) {
-            $this->notice->setConfirmPasswordError('Confirm password must be the same as password');
+    public function checkConfirmPassword($repeatPassword, $password){
+        if (!strlen(($repeatPassword))) {
+            $this->notices["repeatPasswordError"] = 'You must enter confirm-password';
+        } elseif (password_verify($repeatPassword, $password)) {
+            $this->notices["repeatPasswordError"] = 'Confirm password must be the same as password';
         }
     }
 
     public function checkDate($dateOfBirth){
         if (empty($dateOfBirth)) {
-            $this->notice->setDateError('You must enter your birthday');
+            $this->notices["dateError"] = 'You must enter your birthday';
         } /*elseif (!filter_var($dateOfBirth, FILTER_VALIDATE_REGEXP, ['options' =>
             ['regexp' => '/^[0-9]{2}\.[0-9]{2}\.[0-9]{4}$/']])) {
             $this->notice->setDateOfBirth('Date of birth has incorrect format');
@@ -66,15 +64,15 @@ class ValidationService
 
     public function checkUpdatedPassword(string $password, string $oldPassword){
         if ($password !== $oldPassword){
-            $this->notice->setPasswordError('You entered the wrong password');
+            $this->notices["updatedPasswordError"] = 'You entered the wrong password';
         }
     }
     /**
-     * @return Notice
+     * @return array
      */
-    public function getNotice(): Notice
+    public function getNotices(): array
     {
-        return $this->notice;
+        return $this->notices;
     }
 
 }
