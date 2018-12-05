@@ -41,6 +41,7 @@ class AuthenticationController extends Controller
             $password = $data['password'];
 
             $user = $this->userService->findUserByEmailAndPswd($email, $password);
+
             if ($user != null) {
 
                 $_SESSION['user_id'] = $user["u_id"];

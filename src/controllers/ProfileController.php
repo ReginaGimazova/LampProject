@@ -82,34 +82,50 @@ class ProfileController extends Controller
             }
             else {
                 $data = $request->request->all();
+                $oldPassword = $data['old_password'];
                 $newPassword = $data['new_password'];
                 $repeatPassword = $data['repeat_password'];
-                $this->validationService->checkUpdatedPassword($data['old_password'], $user->getPassword());
-                $this->validationService->checkConfirmPassword($repeatPassword, $newPassword);
-                $this->notices = $this->validationService->getNotices();
-                foreach ($this->notices as $key => $value){
-                    if ($value == "") {
-                        foreach ($data as $dataKey => $dataValue) {
-                            $user->$dataKey = $dataValue;
-                        }
-                        $user->setPassword($newPassword);
-                        $manager->flush();
-                        $this->response = $this->redirectToRoute('profile_open', array('id' => $id));
+
+                $checkData = false;
+                if ($newPassword !== "" && $oldPassword !== "" && $repeatPassword !== "") {
+                    $this->validationService->checkUpdatedPassword($oldPassword, $user->getPassword());
+                    $this->validationService->checkConfirmPassword($repeatPassword, $newPassword);
+                    $this->notices = $this->validationService->getNotices();
+                }
+                
+                foreach ($this->notices as $key => $notice) {
+
+                    if ($notice == ""){
+                        $checkData = true;
                     }
                     else{
-                        $this->response = $this->render('edit.html.twig', array(
-                            'id' => $id,
-                            'notices' => $this->notices,
-                            'email' => $user->getEmail(),
-                            'country' => $user->getCountry(),
-                            'gender' => $user->getGender(),
-                            'countries' => ExtraResources::getListOfCountries(),
-                            'birthday' => $user->getDateOfBirth()));
+                        $checkData = false;
                     }
                 }
-               if (!isset($newPassword, $repeatPassword, $data['old_password'])) {
-                    foreach ($data as $key => $value) {
-                        $user->$key = $value;
+
+                if ($checkData) {
+                    foreach ($data as $dataKey => $dataValue) {
+                        $user->$dataKey = $dataValue;
+                    }
+                    $user->setPassword($newPassword);
+                    $manager->flush();
+                    $this->response = $this->redirectToRoute('profile_open', array('id' => $id));
+                }
+                else{
+                    $this->response = $this->render('edit.html.twig', array(
+                        'id' => $id,
+                        'notices' => $this->notices,
+                        'email' => $user->getEmail(),
+                        'country' => $user->getCountry(),
+                        'gender' => $user->getGender(),
+                        'countries' => ExtraResources::getListOfCountries(),
+                        'birthday' => $user->getDateOfBirth()));
+                }
+
+
+                if (!isset($newPassword, $repeatPassword, $oldPassword)) {
+                    foreach ($data as $key => $notice) {
+                        $user->$key = $notice;
                     }
                     $manager->flush();
                 }
@@ -120,10 +136,14 @@ class ProfileController extends Controller
     }
 
     public function deleteProfile(int $id){
-        $manager = $this->getDoctrine()->getManager();
+        $this->userService->deleteUser($id);
+       /* $manager = $this->getDoctrine()->getManager();
         $user = $manager->getRepository(User::class)->find($id);
         $manager->remove($user);
-        $manager->flush();
+        $manager->flush();*/
+
+       $this->response = $this->redirectToRoute('auth_open');
+       return $this->response;
     }
 
 }

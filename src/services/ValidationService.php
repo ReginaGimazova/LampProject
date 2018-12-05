@@ -32,16 +32,14 @@ class ValidationService
     public function checkPassword($password){
         if (!strlen($password)) {
            $this->notices["passwordError"] = 'You must enter password';
-        } elseif (strlen($password) < 8) {
-           $this->notices["passwordError"] = "Length of password must be greater than 8 symbols";
         }
     }
 
 
     public function checkConfirmPassword($repeatPassword, $password){
         if (!strlen(($repeatPassword))) {
-            $this->notices["repeatPasswordError"] = 'You must enter confirm-password';
-        } elseif (password_verify($repeatPassword, $password)) {
+            $this->notices["repeatPasswordError"] = 'You must repeat password';
+        } elseif ($repeatPassword !== $password) {
             $this->notices["repeatPasswordError"] = 'Confirm password must be the same as password';
         }
     }

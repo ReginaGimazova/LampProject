@@ -5,6 +5,8 @@
         "php": "^7.1.3",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "ext-json": "*",
+        "ext-pdo": "*",
         "doctrine/dbal": "dev-master",
         "sensio/framework-extra-bundle": "^5.2",
         "symfony/asset": "*",
@@ -12,11 +14,9 @@
         "symfony/flex": "^1.1",
         "symfony/framework-bundle": "*",
         "symfony/orm-pack": "^1.0",
+        "symfony/translation": "4.1.*",
         "symfony/twig-bundle": "*",
-        "symfony/yaml": "*",
-      "ext-pdo": "*",
-      "ext-json": "*",
-      "ext-http": "*"
+        "symfony/yaml": "*"
     },
     "require-dev": {
         "symfony/dotenv": "*",

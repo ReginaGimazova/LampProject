@@ -5,6 +5,7 @@ namespace App\services;
 use App\entities\User;
 use App\repositories\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use PDO;
 
 class UserService
 {
@@ -32,20 +33,21 @@ class UserService
     function findUserByEmailAndPswd(string $email, string $password){
        return $this->userRepository->findUserByEmailAndPassword($email, $password );
     }
-    /*function createUser(User $user){
-        $array = get_object_vars($user);
-        $values = [];
-        foreach ($array as $value){
-            array_push($values, $value);
+
+    function deleteUser(int $id){
+        $pdoString = "pgsql:host=localhost;port=5432;dbname=db;user=postgres;password=34Zc18WfLn";
+
+        try{
+            $pdo = new PDO($pdoString);
         }
-    }*/
+        catch (\PDOException $e){
+            var_dump($e->getMessage());
+        }
+        $sql = "delete from users where id=:id";
 
-    function findUser(int $id){
-
-    }
-
-    function deleteUser(User $user){
-
+        $statement = $pdo->prepare($sql);
+        $statement->bindParam(':id', $id, PDO::PARAM_INT);
+        $statement->execute();
     }
 
     function updateUser(User $user){
