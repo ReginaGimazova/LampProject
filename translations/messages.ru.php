@@ -1,4 +1,4 @@
-return array (
+array (
     'titles' => array (
         'Registration' => 'Регистрация',
         'Authentication' => 'Вход',

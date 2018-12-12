@@ -11,24 +11,22 @@ namespace App\controllers;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
-
 class LogoutController extends Controller
 {
-
     private $response;
 
     public function __construct()
     {
         $this->response = new Response();
     }
-    public function logout(){
-        if (!isset($_POST['logout'])) {
 
-            session_unset();
-
-            $this->response = $this->redirectToRoute('auth_open');
-        }
+    public function logout()
+    {
+        session_start();
+        unset($_SESSION['user_id']);
+        session_destroy();
+        $this->response = $this->redirectToRoute('auth_open');
         return $this->response;
-    }}
+    }
 
-
+}

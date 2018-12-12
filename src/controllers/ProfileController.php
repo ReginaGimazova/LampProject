@@ -23,7 +23,6 @@ class ProfileController extends Controller
     private $response;
     private $userService;
     private $validationService;
-    private $notices;
 
     public function __construct(EntityManagerInterface $entityManager)
     {
@@ -34,28 +33,41 @@ class ProfileController extends Controller
 
     public function openProfilePage($id, Request $request)
     {
+        session_start();
+
         $user = $this->getDoctrine()
             ->getRepository(User::class)
             ->find($id);
 
-        $this->response = $this->render('profile.html.twig', array(
-            'email' => $user -> getEmail(),
-            'country' => $user -> getCountry(),
-            'gender' => $user -> getGender(),
-            'birthday' => $user -> getDateOfBirth(),
-            'id' => $id
+        if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == $id) {
+
+            $this->response = $this->render('profile.html.twig', array(
+                'email' => $user->getEmail(),
+                'country' => $user->getCountry(),
+                'gender' => $user->getGender(),
+                'birthday' => $user->getDateOfBirth(),
+                'id' => $id
             ));
 
-        $data = $request -> request -> all();
-        if(isset($data['delete'])){
-            $this->deleteProfile($id);
-        }
+            $data = $request->request->all();
+            if (isset($data['delete'])) {
+                $this->deleteProfile($id);
+            }
 
-        if (isset($data['edit'])){
-            $this->response = $this->redirectToRoute('edit_open', array('id'=> $id));
+            if (isset($data['edit'])) {
+                $this->response = $this->redirectToRoute('edit_open', array('id' => $id));
+            }
+
+            if (isset($data['logout'])) {
+                $this->response = $this->redirectToRoute('logout');
+            }
+        }
+        else {
+            $this->response = $this->redirectToRoute('auth_open');
         }
         return $this->response;
     }
+
 
     public function openEditPage($id){
        $user = $this->getDoctrine()
@@ -90,11 +102,11 @@ class ProfileController extends Controller
                 if ($newPassword !== "" && $oldPassword !== "" && $repeatPassword !== "") {
                     $this->validationService->checkUpdatedPassword($oldPassword, $user->getPassword());
                     $this->validationService->checkConfirmPassword($repeatPassword, $newPassword);
-                    $this->notices = $this->validationService->getNotices();
                 }
-                
-                foreach ($this->notices as $key => $notice) {
 
+               $notices = $this->validationService->getNotices();
+
+                foreach ($notices as $key => $notice) {
                     if ($notice == ""){
                         $checkData = true;
                     }
@@ -107,14 +119,16 @@ class ProfileController extends Controller
                     foreach ($data as $dataKey => $dataValue) {
                         $user->$dataKey = $dataValue;
                     }
-                    $user->setPassword($newPassword);
+                    if (isset($newPassword)){
+                        $user->setPassword($newPassword);
+                    }
                     $manager->flush();
                     $this->response = $this->redirectToRoute('profile_open', array('id' => $id));
                 }
                 else{
                     $this->response = $this->render('edit.html.twig', array(
                         'id' => $id,
-                        'notices' => $this->notices,
+                        'notices' => $notices,
                         'email' => $user->getEmail(),
                         'country' => $user->getCountry(),
                         'gender' => $user->getGender(),
@@ -137,13 +151,7 @@ class ProfileController extends Controller
 
     public function deleteProfile(int $id){
         $this->userService->deleteUser($id);
-       /* $manager = $this->getDoctrine()->getManager();
-        $user = $manager->getRepository(User::class)->find($id);
-        $manager->remove($user);
-        $manager->flush();*/
-
-       $this->response = $this->redirectToRoute('auth_open');
-       return $this->response;
+        $this->response = $this->redirectToRoute('auth_open');
+        return $this->response;
     }
-
 }

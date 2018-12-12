@@ -1,6 +1,0 @@
-# config/packages/translation.yaml
-framework:
-  default_locale: "en"
-  translator:
-    fallbacks: ["ru"]
-

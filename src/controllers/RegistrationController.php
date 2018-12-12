@@ -37,8 +37,9 @@ class RegistrationController extends Controller
         $this->userService = new UserService($entityManager);
     }
 
-    function openRegistrationPage()
+    function openRegistrationPage(Request $request)
     {
+        $request -> setLocale('ru');
         return $this->render('reg.html.twig', [
             'list' => $this->list
         ]);
@@ -57,19 +58,15 @@ class RegistrationController extends Controller
 
             $this->validationService->checkUser($data);
             $this->notices = $this->validationService->getNotices();
-            var_dump($this->notices);
 
             foreach ($this->notices as $key => $value ){
                 if ($value !== ""){
-                    var_dump("not empty");
                     $this->response = $this->render('reg.html.twig', [
                         'notices' => $this->notices, 'list' => $this->list
                     ]);
                 }
 
                 else {
-
-                    var_dump("empty");
                     foreach ($data as $dataKey => $dataValue) {
 
                         $user->$dataKey = $dataValue;
