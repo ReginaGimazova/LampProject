@@ -22,11 +22,6 @@ logout:
   controller: App\controllers\LogoutController::logout
   methods: [POST]
 
-after_logout:
-  path: /logout
-  controller: App\controllers\AuthenticationController::openAuthenticationPage
-  methods: [GET]
-
 auth_post:
   path: /authentication
   controller: App\controllers\AuthenticationController::authentication

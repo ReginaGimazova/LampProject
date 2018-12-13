@@ -49,9 +49,4 @@ class UserService
         $statement->bindParam(':id', $id, PDO::PARAM_INT);
         $statement->execute();
     }
-
-    function updateUser(User $user){
-
-    }
-
 }

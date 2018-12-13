@@ -10,7 +10,7 @@
 <body>
     <header>
         <h2 class="logo">MY APP</h2>
-            <form class="nav" method="post">
+            <form action="{{ path('logout') }}" class="nav" method="post">
                 <a class="nav_link">Translate to English</a>
                 <button type="submit" name="logout" class="btn_nav" >Log out</button>
             </form>

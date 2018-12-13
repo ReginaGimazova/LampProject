@@ -24,7 +24,6 @@ class LogoutController extends Controller
     {
         session_start();
         unset($_SESSION['user_id']);
-        session_destroy();
         $this->response = $this->redirectToRoute('auth_open');
         return $this->response;
     }

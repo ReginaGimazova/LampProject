@@ -104,10 +104,10 @@ class ProfileController extends Controller
                     $this->validationService->checkConfirmPassword($repeatPassword, $newPassword);
                 }
 
-               $notices = $this->validationService->getNotices();
+                $notices = $this->validationService->getNotices();
 
                 foreach ($notices as $key => $notice) {
-                    if ($notice == ""){
+                    if (empty($notice)){
                         $checkData = true;
                     }
                     else{
@@ -133,16 +133,10 @@ class ProfileController extends Controller
                         'country' => $user->getCountry(),
                         'gender' => $user->getGender(),
                         'countries' => ExtraResources::getListOfCountries(),
-                        'birthday' => $user->getDateOfBirth()));
+                        'birthday' => $user->getDateOfBirth())
+                    );
                 }
 
-
-                if (!isset($newPassword, $repeatPassword, $oldPassword)) {
-                    foreach ($data as $key => $notice) {
-                        $user->$key = $notice;
-                    }
-                    $manager->flush();
-                }
             }
         }
 
