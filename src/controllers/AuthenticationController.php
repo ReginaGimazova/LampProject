@@ -25,12 +25,14 @@ class AuthenticationController extends Controller
         $this->response = new Response();
     }
 
-    public function openAuthenticationPage(){
+    public function openAuthenticationPage()
+    {
         $this->response = $this->render('auth.html.twig');
         return $this->response;
     }
 
-    public function authentication(Request $request){
+    public function authentication(Request $request)
+    {
         session_start();
 
         $data = $request->request->all();
@@ -47,29 +49,27 @@ class AuthenticationController extends Controller
                 $_SESSION['user_id'] = $user["u_id"];
                 $_SESSION['timeout'] = time();
 
-             /*   if (!empty($_POST['remember-me'])){
-                    setcookie('member_login', $_POST['auth_email'], time() + 20000);
-                    setcookie('member_password', $_POST['auth_password'], time() + 20000);
-                }
-                else {
+                /*   if (!empty($_POST['remember-me'])){
+                       setcookie('member_login', $_POST['auth_email'], time() + 20000);
+                       setcookie('member_password', $_POST['auth_password'], time() + 20000);
+                   }
+                   else {
 
-                    if (isset($_COOKIE['member_login'])) {
-                        setcookie("member_login", "");
-                    }
-                    if (isset($_COOKIE['member_password'])) {
-                        setcookie("member_password", "");
-                    }
-                }*/
+                       if (isset($_COOKIE['member_login'])) {
+                           setcookie("member_login", "");
+                       }
+                       if (isset($_COOKIE['member_password'])) {
+                           setcookie("member_password", "");
+                       }
+                   }*/
             }
         }
 
-        if (isset($_SESSION['user_id'])){
+        if (isset($_SESSION['user_id'])) {
             $this->response = $this->redirectToRoute('profile_open', array('id' => $user['u_id']));
-            return $this->response;
-        }
-        else{
+        } else {
             $this->response = $this->redirectToRoute('auth_open');
-            return $this->response;
         }
+        return $this->response;
     }
 }

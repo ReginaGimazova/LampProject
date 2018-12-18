@@ -1,20 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Profile</title>
-    {% block stylesheets %}
-        <link rel="stylesheet" href="{{ asset('css/stylesheet.css')}}">
-    {% endblock %}
-</head>
-<body>
-    <header>
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit profile{% endblock %}
+
+{% block head %}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+
+    {% set header %}
         <h2 class="logo">MY APP</h2>
         <form class="nav" method="post">
             <a class="nav_link">Translate to English</a>
             <button type="submit" name="logout" class="btn_nav" >Log out</button>
         </form>
-    </header>
+    {% endset %}
 
     <div class="container">
         <div class="profile_info">
@@ -42,7 +42,7 @@
                     <label for="pswd" class="link">Enter your old password</label>
 
                     <input placeholder="old password" name="old_password" type="password">
-
+                    public
                     <p class="link">Enter your new password and repeat it</p>
                     <input placeholder="new password" name="new_password" type="password">
                     <input placeholder="repeat password" name="repeat_password" type="password">
@@ -78,5 +78,4 @@
             }
         </script>
     {% endblock %}
-</body>
-</html>
+{% endblock %}

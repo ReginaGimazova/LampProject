@@ -1,20 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Profile</title>
-    {% block stylesheets %}
-        <link rel="stylesheet" href="{{ asset('css/stylesheet.css')}}">
-    {% endblock %}
-</head>
-<body>
-    <header>
+{% extends 'base.html.twig' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block head %}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+
+    {% set header %}
         <h2 class="logo">MY APP</h2>
             <form action="{{ path('logout') }}" class="nav" method="post">
                 <a class="nav_link">Translate to English</a>
                 <button type="submit" name="logout" class="btn_nav" >Log out</button>
             </form>
-    </header>
+    {% endset %}
 
     <div class="container">
         <section>
@@ -31,5 +31,4 @@
             </form>
         </div>
     </div>
-</body>
-</html>
+{% endblock %}

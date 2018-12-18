@@ -27,7 +27,6 @@ services:
         resource: '../src/controllers'
         tags: ['controller.service_arguments']
 
-
     App\resources\:
         resource: '../src/resources'
 

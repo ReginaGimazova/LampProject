@@ -1,21 +1,16 @@
+{% extends 'base.html.twig' %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Registration</title>
-    {% block stylesheets %}
-        <link rel="stylesheet" href="{{ asset('css/stylesheet.css')}}">
+{% block title %} Registration {% endblock %}
+
+{% block head %}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+
+    {% block header %}
+        {{ parent() }}
     {% endblock %}
-</head>
-
-<body>
-    <header>
-        <h2 class="logo">MY APP</h2>
-        <a class="nav_link">
-            {{ 'Translate to English' | trans }}
-        </a>
-    </header>
 
     <div class="page_content">
         {%if notices is defined and notices is not empty %}
@@ -70,6 +65,4 @@
             </form>
         </div>
     </div>
-</body>
-
-</html>
+{% endblock %}

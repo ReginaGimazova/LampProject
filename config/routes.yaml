@@ -46,3 +46,13 @@ edit_post:
   path: /profile/{id}/edit
   controller: App\controllers\ProfileController::edit
   methods: [POST]
+
+test_form:
+  path: /form
+  controller: App\controllers\TestController::formBuilder
+  methods: [GET]
+
+books:
+  path: /books
+  controller: App\controllers\TestController::writeXpathResult
+  methods: [GET]

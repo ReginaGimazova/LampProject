@@ -1,18 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Authentication</title>
-    {% block stylesheets %}
-        <link rel="stylesheet" href="{{ asset('css/stylesheet.css')}}">
-    {% endblock %}
-</head>
+{% extends 'base.html.twig' %}
 
-<body>
-    <header>
-        <h2 class="logo">MY APP</h2>
-        <a class="nav_link">Translate to English</a>
-    </header>
+{% block title %}Authentication{% endblock %}
+
+
+{% block head %}
+    {{ parent() }}
+{% endblock %}
+
+
+{% block content %}
     <div class="form_window">
         <h2>AUTHENTICATION</h2>
         <form method="post">
@@ -29,5 +25,4 @@
             <button type="submit" name="submit" class="post_btn">Log in</button>
         </form>
     </div>
-</body>
-</html>
+{% endblock %}

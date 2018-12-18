@@ -1,12 +1,23 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        {% block head %}
+            <meta charset="UTF-8">
+            {% block stylesheets %}
+                <link rel="stylesheet" href="{{ asset('css/stylesheet.css')}}">
+            {% endblock %}
+            <title>{% block title %}{% endblock %}</title>
+        {% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+        <header>
+            {% block header %}
+                <h2 class="logo">MY APP</h2>
+                <a class="nav_link">Translate to English</a>
+            {% endblock %}
+        </header>
+
+
+        {% block content %}{% endblock %}
     </body>
 </html>

@@ -7,16 +7,19 @@
         "ext-iconv": "*",
         "ext-json": "*",
         "ext-pdo": "*",
+        "ext-simplexml": "*",
         "doctrine/dbal": "dev-master",
         "sensio/framework-extra-bundle": "^5.2",
         "symfony/asset": "*",
         "symfony/console": "*",
         "symfony/flex": "^1.1",
+        "symfony/form": "4.1.*",
         "symfony/framework-bundle": "*",
         "symfony/orm-pack": "^1.0",
         "symfony/translation": "4.1.*",
         "symfony/twig-bundle": "*",
-        "symfony/yaml": "*"
+        "symfony/yaml": "4.1.*",
+        "twig/extensions": "^1.5"
     },
     "require-dev": {
         "symfony/dotenv": "*",

@@ -1,0 +1,33 @@
+fields:
+  username:
+    name: username
+    type: \Text
+    options:
+      required: true
+      label: Username
+
+  email:
+    name: email
+    type: \Email
+    options:
+      required: true
+      label: Email
+
+  birthday:
+    name: birthday
+    type: \Birthday
+    options:
+      format: dd-MM-yyyy
+
+  password:
+    name: password
+    type: \Text
+    options:
+      required: true
+      label: Password
+
+  button:
+    name: button
+    type: \Submit
+    options:
+      label: button
