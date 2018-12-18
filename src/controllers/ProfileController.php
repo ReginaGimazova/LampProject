@@ -46,7 +46,8 @@ class ProfileController extends Controller
                 'country' => $user->getCountry(),
                 'gender' => $user->getGender(),
                 'birthday' => $user->getDateOfBirth(),
-                'id' => $id
+                'id' => $id,
+                'today' => new \DateTime(),
             ));
 
             $data = $request->request->all();

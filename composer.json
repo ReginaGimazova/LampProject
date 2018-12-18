@@ -9,6 +9,7 @@
         "ext-pdo": "*",
         "ext-simplexml": "*",
         "doctrine/dbal": "dev-master",
+        "pimple/pimple": "^3.2",
         "sensio/framework-extra-bundle": "^5.2",
         "symfony/asset": "*",
         "symfony/console": "*",

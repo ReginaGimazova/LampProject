@@ -6,7 +6,7 @@
  * Time: 16:03
  */
 
-namespace App\form;
+namespace App\types;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -15,7 +15,7 @@ use Symfony\Component\Yaml\Yaml;
 class FormType extends AbstractType
 {
     public function parseFile(){
-        $yamlFile = "/home/regagim/sites/project/src/form/form.yaml";
+        $yamlFile = "/home/regagim/sites/project/src/resources/form.yaml";
         $yaml = Yaml::parseFile($yamlFile);
         $fields = $yaml['fields'];
         return $fields;

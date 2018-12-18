@@ -6,14 +6,14 @@
  * Time: 19:13
  */
 
-namespace App\parseXml;
+namespace App\services;
 
 use SimpleXMLElement;
 
 class ParsingFile
 {
     public static function parseXmlFile(){
-        $xmlStr = file_get_contents("/home/regagim/sites/project/src/parseXml/books.xml");
+        $xmlStr = file_get_contents("/home/regagim/sites/project/src/resources/books.xml");
         $xml = new SimpleXMLElement($xmlStr);
         $result = $xml->xpath("book/price[.>'600']");
         return $result;

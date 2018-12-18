@@ -8,8 +8,8 @@
 
 namespace App\controllers;
 
-use App\form\FormType;
-use App\parseXml\ParsingFile;
+use App\types\FormType;
+use App\services\ParsingFile;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class TestController extends AbstractController
